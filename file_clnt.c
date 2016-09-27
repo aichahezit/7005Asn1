@@ -46,7 +46,7 @@ int main (int argc, char **argv)
 	struct sockaddr_in server;
 	char  *host, *bp, rbuf[BUFLEN], sbuf[BUFLEN], **pptr, *sptr;
 	char str[16];
-	int result;
+	int result = 5;
 	
 	//get port from cmd args
 
@@ -56,11 +56,11 @@ int main (int argc, char **argv)
 		case 2:
 			host =	argv[1];	// Host name
 			port =	SERVER_TCP_PORT;
-		break;
+			break;
 		case 3:
 			host =	argv[1];
 			port =	atoi(argv[2]);	// User specified port
-		break;
+			break;
 		default:
 			fprintf(stderr, "Usage: %s host [port]\n", argv[0]);
 			exit(1);
@@ -96,10 +96,14 @@ int main (int argc, char **argv)
 
 	// get user's text
 	fgets (sbuf, BUFLEN, stdin);
+	printf("SBUF: %s\n", sbuf);
+	printf("strcmp get result: %i\n", strcmp(sbuf, "get"));
 
-	//transfer string command for use in switch case
-	if(strcmp(sbuf, "get"))	{result = 0;}
-	if(strcmp(sbuf, "send")){result = 1;}
+	//transfer string command for use in switch case TODO: trailing white spaces causing errors
+	if(strcmp(sbuf, "get") == 0)	{result = 0;}
+	if(strcmp(sbuf, "send") == 0)	{result = 1;}
+
+	printf("Switch value: %i\n", result);
 
 	//switch statement for get or receive command
 	switch(result){

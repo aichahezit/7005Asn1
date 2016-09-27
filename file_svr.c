@@ -26,6 +26,7 @@
 #include <strings.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <string.h>
 
 #define SERVER_TCP_PORT 7005	// Default port
 #define BUFLEN	80		//Buffer length
@@ -39,6 +40,7 @@ int main (int argc, char **argv)
 	int	sd, new_sd, client_len, port;
 	struct	sockaddr_in server, client;
 	char	*bp, buf[BUFLEN];
+	FILE *fp;
 
 	//get cmd args for port
 	port = atoi(argv[1]);
@@ -78,6 +80,7 @@ int main (int argc, char **argv)
 			}
 		
 		//temp for testing, replace with confirmation of recieved user command
+		//read command recieved from client into buf		
 		bp = buf;
 		bytes_to_read = BUFLEN;
 		while ((n = recv (new_sd, bp, bytes_to_read, 0)) < BUFLEN)
@@ -85,12 +88,38 @@ int main (int argc, char **argv)
 			bp += n;
 			bytes_to_read -= n;
 		}
-		printf ("sending:%s\n", buf);
 
-		send (new_sd, buf, BUFLEN, 0);
-		close (new_sd);
+		//TODO: maybe switch statement? error handling
+		//if user command was get
+		if(strcmp("get", buf)){
+			//create file "test.txt" if not exists TODO:error checking for file creation
+			fp = fopen("test.txt", "ab+");
+
+			//send file to client TODO: split into error msgs (with handling)
+
+			//testing output
+			printf ("sending:%s\n", buf);
+			send (new_sd, buf, BUFLEN, 0);
+			close (new_sd);
+			close(sd);
+		}
+
+		//if user command was send
+		if(strcmp("send", buf)){
+			//recieve file
+
+			//save file to "server"
+
+			//send conformation TODO: split into error msgs (with handling)
+
+			//testing output
+			printf("sending:%s\n", buf);
+			send (new_sd, buf, BUFLEN, 0);
+			close (new_sd);
+			close(sd);
+		}
 	}
-
-	close(sd);
+	
+	//close(sd);
 	return(0);	
 }
