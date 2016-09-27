@@ -1,0 +1,22 @@
+/*---------------------------------------------------------------------------------------
+--	SOURCE FILE:		file_clnt.c -   A simple file transfer client using TCP
+--
+--	PROGRAM:		fclnt.exe (?)
+--
+--	FUNCTIONS:		Berkeley Socket API
+--
+--	DATE:			September 27, 2016
+--
+--	REVISIONS:		N/A
+--
+--	DESIGNERS:		Aicha Hezit
+--
+--	PROGRAMMERS:		Aicha Hezit
+--
+--	NOTES:
+--	The program will make TCP connections to a server specified by user.
+-- 	The server can be specified using a fully qualified domain name or and
+--	IP address. After the connection has been established the user will be
+-- 	prompted for a command; get or receive file. The command is then sent to the server and the
+-- 	response(file) from the server is displayed.
+---------------------------------------------------------------------------------------*/
